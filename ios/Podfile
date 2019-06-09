@@ -1,0 +1,31 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'kapoo' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for kapoo
+  pod 'Firebase/Core', '~> 5.20.1'
+  pod 'Firebase/Auth', '~> 5.20.1'
+  pod 'Firebase/Firestore', '~> 5.20.1'
+  
+  target 'kapooTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'kapoo-tvOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for kapoo-tvOS
+
+  target 'kapoo-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
