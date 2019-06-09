@@ -24,6 +24,7 @@ const RootNavigator = createBottomTabNavigator(
     },
   },
   {
+    initialRouteName: "Account",
     tabBarOptions: {
       activeTintColor: colors.secondary,
       inactiveTintColor: colors.grey2,
