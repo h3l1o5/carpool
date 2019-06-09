@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import { Avatar, Button, Divider, Icon, Text } from "react-native-elements";
 import firebase, { RNFirebase } from "react-native-firebase";
+import { NavigationInjectedProps } from "react-navigation";
+
 import { colors } from "../../theme";
 
-const Account = () => {
+const Account: React.FC<NavigationInjectedProps> = props => {
   const [user, setUser] = useState<RNFirebase.auth.OrNull<RNFirebase.User>>(null);
 
   useEffect(() => {
@@ -12,6 +14,10 @@ const Account = () => {
       setUser(user);
     });
   }, []);
+
+  const handleSignUpPressed = () => {
+    props.navigation.navigate("SignUp");
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -98,6 +104,7 @@ const Account = () => {
                 TouchableComponent={TouchableOpacity}
                 titleStyle={{ fontSize: 14 }}
                 buttonStyle={{ padding: 0 }}
+                onPress={handleSignUpPressed}
               />
             </View>
           </View>

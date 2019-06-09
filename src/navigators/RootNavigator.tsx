@@ -1,35 +1,63 @@
 import React from "react";
 import { Icon } from "react-native-elements";
-import { createBottomTabNavigator, NavigationInjectedProps } from "react-navigation";
+import { createBottomTabNavigator, createStackNavigator, NavigationInjectedProps } from "react-navigation";
 
-import Account from "../screens/account/Account";
+import SignUp from "../screens/account/SignUp";
 import Explore from "../screens/explore/Explore";
 import { colors } from "../theme";
+import AccountNavigator from "./AccountNavigator";
 
-const RootNavigator = createBottomTabNavigator(
+const RootNavigator = createStackNavigator(
   {
-    Explore: {
-      screen: Explore,
-      navigationOptions: ({ navigation }: NavigationInjectedProps) => ({
-        tabBarLabel: "探索",
-        tabBarIcon: ({ tintColor }: { tintColor: string }) => <Icon type="feather" name="search" color={tintColor} />,
-      }),
+    Main: {
+      screen: createBottomTabNavigator(
+        {
+          Explore: {
+            screen: Explore,
+            navigationOptions: ({ navigation }: NavigationInjectedProps) => ({
+              tabBarLabel: "探索",
+              tabBarIcon: ({ tintColor }: { tintColor: string }) => (
+                <Icon type="feather" name="search" color={tintColor} />
+              ),
+            }),
+          },
+          Account: {
+            screen: AccountNavigator,
+            navigationOptions: ({ navigation }: NavigationInjectedProps) => ({
+              tabBarLabel: "我的帳號",
+              tabBarIcon: ({ tintColor }: { tintColor: string }) => (
+                <Icon type="feather" name="user" color={tintColor} />
+              ),
+            }),
+          },
+        },
+        {
+          initialRouteName: "Account",
+          tabBarOptions: {
+            activeTintColor: colors.secondary,
+            inactiveTintColor: colors.grey2,
+            tabStyle: { marginTop: 5 },
+          },
+        }
+      ),
     },
-    Account: {
-      screen: Account,
-      navigationOptions: ({ navigation }: NavigationInjectedProps) => ({
-        tabBarLabel: "我的帳號",
-        tabBarIcon: ({ tintColor }: { tintColor: string }) => <Icon type="feather" name="user" color={tintColor} />,
-      }),
+    SignUp: {
+      screen: createStackNavigator(
+        {
+          SignUp: {
+            screen: SignUp,
+          },
+        },
+        {
+          headerMode: "none",
+          navigationOptions: { gesturesEnabled: false },
+        }
+      ),
     },
   },
   {
-    initialRouteName: "Account",
-    tabBarOptions: {
-      activeTintColor: colors.secondary,
-      inactiveTintColor: colors.grey2,
-      tabStyle: { marginTop: 5 },
-    },
+    headerMode: "none",
+    mode: "modal",
   }
 );
 

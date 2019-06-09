@@ -4,7 +4,7 @@ import { Button } from "react-native-elements";
 import firebase from "react-native-firebase";
 import { colors } from "../../theme";
 
-const Explore = () => {
+const Explore: React.FC = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Button
