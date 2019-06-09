@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import { Avatar, Button, Divider, Icon, Text } from "react-native-elements";
 import firebase, { RNFirebase } from "react-native-firebase";
 import { colors } from "../../theme";
@@ -58,7 +58,7 @@ const Account = () => {
               }
               titleStyle={{ fontSize: 16 }}
               containerStyle={{ width: "100%", marginVertical: 5 }}
-              buttonStyle={{ borderRadius: 50, backgroundColor: "#db4437" }}
+              buttonStyle={{ backgroundColor: "#db4437", elevation: 0 }}
             />
             <Button
               title="使用 Facebook 登入"
@@ -74,14 +74,13 @@ const Account = () => {
               }
               titleStyle={{ fontSize: 16 }}
               containerStyle={{ width: "100%", marginVertical: 10 }}
-              buttonStyle={{ borderRadius: 50, backgroundColor: "#4267b2" }}
+              buttonStyle={{ backgroundColor: "#4267b2" }}
             />
             <Button
               title="使用帳號密碼登入"
               type="outline"
               titleStyle={{ fontSize: 16 }}
               containerStyle={{ width: "100%", marginTop: 40 }}
-              buttonStyle={{ borderRadius: 50 }}
             />
             <View
               style={{
@@ -93,7 +92,13 @@ const Account = () => {
               }}
             >
               <Text style={{ color: colors.grey2 }}>還沒有帳號？</Text>
-              <Button title="註冊" type="clear" titleStyle={{ fontSize: 14 }} buttonStyle={{ padding: 0 }} />
+              <Button
+                title="註冊"
+                type="clear"
+                TouchableComponent={TouchableOpacity}
+                titleStyle={{ fontSize: 14 }}
+                buttonStyle={{ padding: 0 }}
+              />
             </View>
           </View>
         )}

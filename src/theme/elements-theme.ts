@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { Theme } from "react-native-elements";
 import colors from "./colors";
 
@@ -11,6 +12,11 @@ const elementsTheme: Theme = {
     grey3: colors.grey3,
     grey4: colors.grey4,
     grey5: colors.grey5,
+  },
+  Button: {
+    buttonStyle: {
+      borderRadius: Platform.OS === "ios" ? 50 : 0,
+    },
   },
 };
 
