@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import { View } from "react-native";
-import { Button } from "react-native-elements";
+import { ThemeProvider } from "react-native-elements";
+import { createAppContainer } from "react-navigation";
 
-export default class App extends Component {
+import RootNavigator from "./navigators/RootNavigator";
+import { elementsTheme } from "./theme";
+
+const AppContainer = createAppContainer(RootNavigator);
+
+class App extends Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Button title="Hey!" />
-      </View>
+      <ThemeProvider theme={elementsTheme}>
+        <AppContainer />
+      </ThemeProvider>
     );
   }
 }
+
+export default App;
