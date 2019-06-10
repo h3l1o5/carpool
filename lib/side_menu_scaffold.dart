@@ -5,6 +5,8 @@ import 'package:kapoo/side_menu.dart';
 
 final rng = new Random();
 
+enum ScreensEnum { screen1, screen2, screen3, screen4, screen5 }
+
 class SideMenuScaffold extends StatefulWidget {
   SideMenuScaffold({Key key, this.backgroundColor = Colors.white})
       : super(key: key);
@@ -17,7 +19,8 @@ class SideMenuScaffold extends StatefulWidget {
 
 class SideMenuScaffoldState extends State<SideMenuScaffold>
     with SingleTickerProviderStateMixin {
-  bool isCollapsed = true;
+  bool isMenuCollapsed = true;
+  ScreensEnum currentScreen = ScreensEnum.screen4;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
 
@@ -57,9 +60,57 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
         children: <Widget>[
           createSideMenuContainer(
             context,
-            sideMenu: SideMenu(),
+            sideMenu: SideMenu(
+              currentScreen: currentScreen,
+              onChangeScreen: (ScreensEnum screen) {
+                setState(() {
+                  _controller.reverse();
+                  isMenuCollapsed = true;
+                  currentScreen = screen;
+                });
+              },
+            ),
           ),
-          dashboard(context),
+          Offstage(
+            offstage: currentScreen != ScreensEnum.screen1,
+            child: Stack(
+              children: <Widget>[
+                dashboard(context, currentScreen),
+              ],
+            ),
+          ),
+          Offstage(
+            offstage: currentScreen != ScreensEnum.screen2,
+            child: Stack(
+              children: <Widget>[
+                dashboard(context, currentScreen),
+              ],
+            ),
+          ),
+          Offstage(
+            offstage: currentScreen != ScreensEnum.screen3,
+            child: Stack(
+              children: <Widget>[
+                dashboard(context, currentScreen),
+              ],
+            ),
+          ),
+          Offstage(
+            offstage: currentScreen != ScreensEnum.screen4,
+            child: Stack(
+              children: <Widget>[
+                dashboard(context, currentScreen),
+              ],
+            ),
+          ),
+          Offstage(
+            offstage: currentScreen != ScreensEnum.screen5,
+            child: Stack(
+              children: <Widget>[
+                dashboard(context, currentScreen),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -84,31 +135,32 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
     );
   }
 
-  Widget dashboard(context) {
+  Widget dashboard(context, ScreensEnum screen) {
     return AnimatedPositioned(
       duration: duration,
       top: 0,
       bottom: 0,
-      left: isCollapsed ? 0 : 0.7 * screenWidth,
-      right: isCollapsed ? 0 : -0.3 * screenWidth,
+      left: isMenuCollapsed ? 0 : 0.7 * screenWidth,
+      right: isMenuCollapsed ? 0 : -0.3 * screenWidth,
       child: ScaleTransition(
         scale: _scaleAnimation,
         child: SafeArea(
           child: GestureDetector(
             onTap: () {
-              if (isCollapsed) {
+              if (isMenuCollapsed) {
                 return;
               }
               setState(() {
                 _controller.reverse();
-                isCollapsed = true;
+                isMenuCollapsed = true;
               });
             },
             child: Material(
               animationDuration: duration,
-              borderRadius:
-                  isCollapsed ? null : BorderRadius.all(Radius.circular(40)),
-              elevation: isCollapsed ? 0 : 10,
+              borderRadius: isMenuCollapsed
+                  ? null
+                  : BorderRadius.all(Radius.circular(40)),
+              elevation: isMenuCollapsed ? 0 : 8,
               color: _backgroundColor,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -126,12 +178,12 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
                             child: Icon(Icons.menu, color: Colors.white),
                             onTap: () {
                               setState(() {
-                                if (isCollapsed)
+                                if (isMenuCollapsed)
                                   _controller.forward();
                                 else
                                   _controller.reverse();
 
-                                isCollapsed = !isCollapsed;
+                                isMenuCollapsed = !isMenuCollapsed;
                               });
                             },
                           ),
@@ -142,61 +194,10 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
                         ],
                       ),
                       SizedBox(height: 50),
-                      Container(
-                        height: 200,
-                        child: PageView(
-                          controller: PageController(viewportFraction: 0.8),
-                          scrollDirection: Axis.horizontal,
-                          pageSnapping: true,
-                          children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 8),
-                              color: Colors.redAccent,
-                              width: 100,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 8),
-                              color: Colors.blueAccent,
-                              width: 100,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 8),
-                              color: Colors.greenAccent,
-                              width: 100,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20),
                       Text(
-                        "Transactions",
+                        "$screen",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                      ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(
-                                "Macbook",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              subtitle: Text(
-                                "Apple",
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              trailing: Text(
-                                "-2900",
-                                style: TextStyle(
-                                    color: rng.nextInt(10) >= 5
-                                        ? Colors.green
-                                        : Colors.red),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return Divider(height: 16);
-                          },
-                          itemCount: 10)
                     ],
                   ),
                 ),
