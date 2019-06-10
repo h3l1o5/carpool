@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "641270305617",
+    "firebase_url": "https://kapoo-21dcb.firebaseio.com",
+    "project_id": "kapoo-21dcb",
+    "storage_bucket": "kapoo-21dcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641270305617:android:e58c3f42561b9ce6",
+        "android_client_info": {
+          "package_name": "com.martysun25.kapoo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641270305617-je6a8aulkebtnj3ha83stb8lkmdivecn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martysun25.kapoo",
+            "certificate_hash": "c9455b7563b045210c6aaf0415289d80b8093723"
+          }
+        },
+        {
+          "client_id": "641270305617-he4h9qa3gqhue8s9irbqcl6nv3h4m626.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD99bzTSPppkjXLL6MadvT4pImsTkINdLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641270305617-he4h9qa3gqhue8s9irbqcl6nv3h4m626.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "641270305617-u67br767cr481luqe3i8l4i1mupo7eoc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.martysun25.kapoo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
