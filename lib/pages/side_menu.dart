@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:kapoo/side_menu_scaffold.dart';
+import 'package:kapoo/blocs/root_page_tab_bloc.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu(
-      {Key key, @required this.currentTab, @required this.onChangeScreen})
-      : super(key: key);
+  const SideMenu({Key key, this.onChangingSideMenuStatus}) : super(key: key);
 
-  final TabEnum currentTab;
-  final Function(TabEnum screen) onChangeScreen;
+  final void Function() onChangingSideMenuStatus;
 
   @override
   Widget build(BuildContext context) {
+    final rootPagetabBloc = Provider.of<RootPageTabBloc>(context);
+
     return Container(
       padding: EdgeInsets.all(48),
       child: Column(
@@ -51,19 +51,24 @@ class SideMenu extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => onChangeScreen(TabEnum.explore),
+                  onTap: () {
+                    rootPagetabBloc.currentTab = RootPageTabEnum.explore;
+                    onChangingSideMenuStatus();
+                  },
                   child: Row(
                     children: <Widget>[
                       Icon(Icons.search,
-                          color: currentTab == TabEnum.explore
+                          color: rootPagetabBloc.currentTab ==
+                                  RootPageTabEnum.explore
                               ? Colors.white
                               : Colors.white54),
                       SizedBox(width: 10),
                       Text(
-                        "Feature X",
+                        "探索",
                         style: TextStyle(
                             fontSize: 20,
-                            color: currentTab == TabEnum.explore
+                            color: rootPagetabBloc.currentTab ==
+                                    RootPageTabEnum.explore
                                 ? Colors.white
                                 : Colors.white54),
                       ),
