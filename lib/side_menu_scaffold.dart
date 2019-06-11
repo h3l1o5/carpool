@@ -1,11 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:kapoo/side_menu.dart';
 
-final rng = new Random();
-
-enum ScreensEnum { screen1, screen2, screen3, screen4, screen5 }
+enum TabEnum { explore }
+const Map<TabEnum, Widget> tabs = {
+  TabEnum.explore: Center(
+    child: Text("TAB 1"),
+  ),
+};
 
 class SideMenuScaffold extends StatefulWidget {
   SideMenuScaffold({Key key, this.backgroundColor = Colors.white})
@@ -19,10 +20,11 @@ class SideMenuScaffold extends StatefulWidget {
 
 class SideMenuScaffoldState extends State<SideMenuScaffold>
     with SingleTickerProviderStateMixin {
-  bool isMenuCollapsed = true;
-  ScreensEnum currentScreen = ScreensEnum.screen4;
-  double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
+
+  bool isMenuCollapsed = true;
+  double screenWidth, screenHeight;
+  TabEnum currentTab = TabEnum.explore;
 
   Color _backgroundColor;
   AnimationController _controller;
@@ -54,64 +56,35 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
     screenHeight = size.height;
     screenWidth = size.width;
 
+    List<Widget> stacks = List()
+      ..add(createSideMenuContainer(
+        context,
+        sideMenu: SideMenu(
+          currentTab: currentTab,
+          onChangeScreen: (TabEnum screen) {
+            setState(() {
+              _controller.reverse();
+              isMenuCollapsed = true;
+              currentTab = screen;
+            });
+          },
+        ),
+      ))
+      ..addAll(tabs.keys.map((tab) {
+        return Offstage(
+          offstage: currentTab != tab,
+          child: Stack(
+            children: <Widget>[
+              createTabContainer(context, tabs[tab]),
+            ],
+          ),
+        );
+      }).toList());
+
     return Scaffold(
       backgroundColor: _backgroundColor,
       body: Stack(
-        children: <Widget>[
-          createSideMenuContainer(
-            context,
-            sideMenu: SideMenu(
-              currentScreen: currentScreen,
-              onChangeScreen: (ScreensEnum screen) {
-                setState(() {
-                  _controller.reverse();
-                  isMenuCollapsed = true;
-                  currentScreen = screen;
-                });
-              },
-            ),
-          ),
-          Offstage(
-            offstage: currentScreen != ScreensEnum.screen1,
-            child: Stack(
-              children: <Widget>[
-                dashboard(context, currentScreen),
-              ],
-            ),
-          ),
-          Offstage(
-            offstage: currentScreen != ScreensEnum.screen2,
-            child: Stack(
-              children: <Widget>[
-                dashboard(context, currentScreen),
-              ],
-            ),
-          ),
-          Offstage(
-            offstage: currentScreen != ScreensEnum.screen3,
-            child: Stack(
-              children: <Widget>[
-                dashboard(context, currentScreen),
-              ],
-            ),
-          ),
-          Offstage(
-            offstage: currentScreen != ScreensEnum.screen4,
-            child: Stack(
-              children: <Widget>[
-                dashboard(context, currentScreen),
-              ],
-            ),
-          ),
-          Offstage(
-            offstage: currentScreen != ScreensEnum.screen5,
-            child: Stack(
-              children: <Widget>[
-                dashboard(context, currentScreen),
-              ],
-            ),
-          ),
-        ],
+        children: stacks,
       ),
     );
   }
@@ -135,7 +108,7 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
     );
   }
 
-  Widget dashboard(context, ScreensEnum screen) {
+  Widget createTabContainer(context, Widget tabWidget) {
     return AnimatedPositioned(
       duration: duration,
       top: 0,
@@ -157,9 +130,7 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
             },
             child: Material(
               animationDuration: duration,
-              borderRadius: isMenuCollapsed
-                  ? null
-                  : BorderRadius.all(Radius.circular(40)),
+              borderRadius: BorderRadius.all(Radius.circular(40)),
               elevation: isMenuCollapsed ? 0 : 8,
               color: _backgroundColor,
               child: SingleChildScrollView(
@@ -187,17 +158,15 @@ class SideMenuScaffoldState extends State<SideMenuScaffold>
                               });
                             },
                           ),
-                          Text("My Cards",
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white)),
+                          Text(
+                            "My Cards",
+                            style: TextStyle(fontSize: 24, color: Colors.white),
+                          ),
                           Icon(Icons.settings, color: Colors.white),
                         ],
                       ),
                       SizedBox(height: 50),
-                      Text(
-                        "$screen",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
+                      tabWidget,
                     ],
                   ),
                 ),
