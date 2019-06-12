@@ -9,6 +9,7 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final rootPagetabBloc = Provider.of<RootPageTabBloc>(context);
 
     return Container(
@@ -38,11 +39,16 @@ class SideMenu extends StatelessWidget {
             children: <Widget>[
               Text(
                 "訪客",
-                style: TextStyle(fontSize: 36),
+                style: TextStyle(
+                  fontSize: 36,
+                  color: theme.textTheme.body1.color,
+                ),
               ),
               Text(
                 "請登入以使用大部分功能",
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                  color: theme.textTheme.body1.color.withAlpha(150),
+                ),
               )
             ],
           ),
@@ -57,32 +63,63 @@ class SideMenu extends StatelessWidget {
                   },
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.search,
-                          color: rootPagetabBloc.currentTab ==
-                                  RootPageTabEnum.explore
-                              ? Colors.white
-                              : Colors.white54),
+                      Icon(
+                        Icons.search,
+                        color: rootPagetabBloc.currentTab ==
+                                RootPageTabEnum.explore
+                            ? theme.iconTheme.color
+                            : theme.iconTheme.color.withAlpha(90),
+                      ),
                       SizedBox(width: 10),
                       Text(
                         "探索",
                         style: TextStyle(
-                            fontSize: 20,
-                            color: rootPagetabBloc.currentTab ==
-                                    RootPageTabEnum.explore
-                                ? Colors.white
-                                : Colors.white54),
+                          fontSize: 20,
+                          color: rootPagetabBloc.currentTab ==
+                                  RootPageTabEnum.explore
+                              ? theme.textTheme.body1.color
+                              : theme.textTheme.body1.color.withAlpha(90),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 15),
+                GestureDetector(
+                  onTap: () {
+                    rootPagetabBloc.currentTab = RootPageTabEnum.setting;
+                    onChangingSideMenuStatus();
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.settings,
+                        color: rootPagetabBloc.currentTab ==
+                                RootPageTabEnum.setting
+                            ? theme.textTheme.body1.color
+                            : theme.textTheme.body1.color.withAlpha(90),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "設定",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: rootPagetabBloc.currentTab ==
+                                  RootPageTabEnum.setting
+                              ? theme.textTheme.body1.color
+                              : theme.textTheme.body1.color.withAlpha(90),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
           Spacer(),
           RaisedButton(
             child: Text("登入"),
-            color: Color(0xFFFF5A5F),
+            color: theme.primaryColor,
             textColor: Colors.white,
             onPressed: () {
               Navigator.pushNamed(context, "/auth");

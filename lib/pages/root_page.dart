@@ -71,7 +71,7 @@ class RootPageState extends State<RootPage>
             child: InkWell(
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
-              child: Icon(Icons.menu, color: Colors.white),
+              child: Icon(Icons.menu),
               onTap: _handleChangingSideMenuStatus,
             ),
           ),

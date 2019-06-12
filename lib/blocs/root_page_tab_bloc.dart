@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum RootPageTabEnum { explore }
+enum RootPageTabEnum { explore, setting }
 
 class RootPageTabBloc with ChangeNotifier {
   RootPageTabEnum _currentTab;
