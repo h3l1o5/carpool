@@ -5,9 +5,7 @@ import 'package:kapoo/pages/side_menu.dart';
 import 'package:provider/provider.dart';
 
 class RootPage extends StatefulWidget {
-  RootPage({Key key, this.backgroundColor = Colors.white}) : super(key: key);
-
-  final Color backgroundColor;
+  RootPage({Key key}) : super(key: key);
 
   @override
   RootPageState createState() => RootPageState();
@@ -19,7 +17,6 @@ class RootPageState extends State<RootPage>
 
   bool _isSideMenuCollapsed = true;
 
-  Color _backgroundColor;
   AnimationController _controller;
   Animation<double> _scaleAnimation;
   Animation<double> _menuScaleAnimation;
@@ -28,7 +25,6 @@ class RootPageState extends State<RootPage>
   @override
   void initState() {
     super.initState();
-    _backgroundColor = widget.backgroundColor;
     _controller = AnimationController(vsync: this, duration: _duration);
     _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(_controller);
     _menuScaleAnimation =
@@ -46,9 +42,10 @@ class RootPageState extends State<RootPage>
   @override
   Widget build(BuildContext context) {
     final rootPageTabBloc = Provider.of<RootPageTabBloc>(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: _backgroundColor,
+      backgroundColor: theme.backgroundColor,
       body: Stack(
         children: <Widget>[
           createSideMenuContainer(
@@ -118,6 +115,7 @@ class RootPageState extends State<RootPage>
 
   Widget createTabContainer(context, Widget tabWidget) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final theme = Theme.of(context);
 
     return AnimatedPositioned(
       duration: _duration,
@@ -133,7 +131,7 @@ class RootPageState extends State<RootPage>
             animationDuration: _duration,
             borderRadius: BorderRadius.all(Radius.circular(40)),
             elevation: _isSideMenuCollapsed ? 0 : 8,
-            color: _backgroundColor,
+            color: theme.backgroundColor,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               physics: ClampingScrollPhysics(),

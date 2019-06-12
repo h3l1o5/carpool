@@ -84,7 +84,9 @@ class SideMenu extends StatelessWidget {
             child: Text("登入"),
             color: Color(0xFFFF5A5F),
             textColor: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "/auth");
+            },
           ),
         ],
       ),
