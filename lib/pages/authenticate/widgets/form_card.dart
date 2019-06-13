@@ -29,7 +29,6 @@ class FormCard extends StatelessWidget {
             SizedBox(height: 30),
             Text("電子郵件地址", style: TextStyle(fontSize: 18)),
             TextField(
-              keyboardAppearance: theme.brightness,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: theme.textTheme.body1.color),
               decoration: InputDecoration(
@@ -49,7 +48,6 @@ class FormCard extends StatelessWidget {
             Text("密碼", style: TextStyle(fontSize: 18)),
             TextField(
               obscureText: true,
-              keyboardAppearance: theme.brightness,
               style: TextStyle(color: theme.textTheme.body1.color),
               decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(
@@ -70,7 +68,7 @@ class FormCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "忘記密碼?",
-                  style: TextStyle(color: theme.accentColor, fontSize: 12),
+                  style: TextStyle(color: theme.accentColor, fontSize: 16),
                 )
               ],
             )

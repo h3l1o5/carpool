@@ -41,11 +41,10 @@ class _AuthenticateState extends State<Authenticate> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // TODO: fix keyboard issue
     return new Scaffold(
       backgroundColor: theme.backgroundColor,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 28, vertical: 14),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +61,7 @@ class _AuthenticateState extends State<Authenticate> {
                   ),
                 ],
               ),
-              Spacer(),
+              SizedBox(height: 80),
               FormCard(),
               SizedBox(height: 20),
               Row(
@@ -136,7 +135,7 @@ class _AuthenticateState extends State<Authenticate> {
                   ),
                 ],
               ),
-              Spacer(),
+              SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -147,7 +146,7 @@ class _AuthenticateState extends State<Authenticate> {
                     onTap: () {},
                     child: Text(
                       "註冊",
-                      style: TextStyle(color: theme.accentColor),
+                      style: TextStyle(color: theme.accentColor, fontSize: 16),
                     ),
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
