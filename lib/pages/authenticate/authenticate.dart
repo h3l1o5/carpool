@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kapoo/pages/authenticate/customIcons.dart';
 import 'package:kapoo/pages/authenticate/widgets/form_card.dart';
 import 'package:kapoo/pages/authenticate/widgets/social_icons.dart';
+import 'package:kapoo/router.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -9,33 +10,15 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
-  Widget radioButton(bool isSelected) => Container(
-        width: 16.0,
-        height: 16.0,
-        padding: EdgeInsets.all(2.0),
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(width: 2.0, color: Colors.black)),
-        child: isSelected
-            ? Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.black),
-              )
-            : Container(),
-      );
+  final emailFieldController = TextEditingController();
+  final passwordFieldController = TextEditingController();
 
-  Widget horizontalLine({@required Color color}) => Expanded(
-        flex: 1,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Container(
-            height: 1,
-            color: color.withOpacity(.3),
-          ),
-        ),
-      );
+  @override
+  void dispose() {
+    super.dispose();
+    emailFieldController.dispose();
+    passwordFieldController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +45,10 @@ class _AuthenticateState extends State<Authenticate> {
                 ],
               ),
               SizedBox(height: 80),
-              FormCard(),
+              FormCard(
+                emailFieldController: emailFieldController,
+                passwordFieldController: passwordFieldController,
+              ),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -87,7 +73,7 @@ class _AuthenticateState extends State<Authenticate> {
                       color: Colors.transparent,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(6.0),
-                        onTap: () {},
+                        onTap: handleSignIn,
                         child: Center(
                           child: Text(
                             "登入",
@@ -143,13 +129,15 @@ class _AuthenticateState extends State<Authenticate> {
                     "沒有帳號？",
                   ),
                   InkWell(
-                    onTap: () {},
                     child: Text(
                       "註冊",
                       style: TextStyle(color: theme.accentColor, fontSize: 16),
                     ),
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(signUpRoute);
+                    },
                   )
                 ],
               )
@@ -159,4 +147,20 @@ class _AuthenticateState extends State<Authenticate> {
       ),
     );
   }
+
+  void handleSignIn() {
+    print(emailFieldController.text);
+    print(passwordFieldController.text);
+  }
+
+  Widget horizontalLine({@required Color color}) => Expanded(
+        flex: 1,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            height: 1,
+            color: color.withOpacity(.3),
+          ),
+        ),
+      );
 }
