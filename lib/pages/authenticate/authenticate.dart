@@ -10,16 +10,6 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
-  final emailFieldController = TextEditingController();
-  final passwordFieldController = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    emailFieldController.dispose();
-    passwordFieldController.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -45,10 +35,7 @@ class _AuthenticateState extends State<Authenticate> {
                 ],
               ),
               SizedBox(height: 80),
-              FormCard(
-                emailFieldController: emailFieldController,
-                passwordFieldController: passwordFieldController,
-              ),
+              FormCard(),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -73,7 +60,7 @@ class _AuthenticateState extends State<Authenticate> {
                       color: Colors.transparent,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(6.0),
-                        onTap: handleSignIn,
+                        onTap: () {},
                         child: Center(
                           child: Text(
                             "登入",
@@ -146,11 +133,6 @@ class _AuthenticateState extends State<Authenticate> {
         ),
       ),
     );
-  }
-
-  void handleSignIn() {
-    print(emailFieldController.text);
-    print(passwordFieldController.text);
   }
 
   Widget horizontalLine({@required Color color}) => Expanded(

@@ -10,8 +10,12 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<RootPageTabBloc>(
-      builder: (_) => RootPageTabBloc(initialTab: RootPageTabEnum.explore),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<RootPageTabBloc>(
+          builder: (_) => RootPageTabBloc(initialTab: RootPageTabEnum.explore),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Baby Names',

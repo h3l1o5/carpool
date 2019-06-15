@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FormCard extends StatefulWidget {
-  FormCard(
-      {Key key,
-      this.isSignUp = false,
-      @required this.emailFieldController,
-      @required this.passwordFieldController})
-      : super(key: key);
+  FormCard({Key key, this.isSignUp = false}) : super(key: key);
 
   final bool isSignUp;
-  final TextEditingController emailFieldController;
-  final TextEditingController passwordFieldController;
 
   @override
   _FormCardState createState() => _FormCardState();
@@ -51,7 +44,6 @@ class _FormCardState extends State<FormCard> {
               Text("電子郵件地址", style: TextStyle(fontSize: 18)),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                controller: widget.emailFieldController,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "Enter some text";
@@ -76,7 +68,6 @@ class _FormCardState extends State<FormCard> {
               SizedBox(height: 30),
               Text("密碼", style: TextStyle(fontSize: 18)),
               TextFormField(
-                controller: widget.passwordFieldController,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "Enter some text";

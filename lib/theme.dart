@@ -15,6 +15,7 @@ class AppTheme {
     backgroundColor: Color(0xFF333340),
     primarySwatch: Colors.red,
     accentColor: Colors.teal[600],
+    errorColor: Colors.redAccent,
     textTheme: TextTheme(
       body1: TextStyle(color: Colors.white),
     ),
