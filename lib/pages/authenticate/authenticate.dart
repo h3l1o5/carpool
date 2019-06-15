@@ -40,39 +40,12 @@ class _AuthenticateState extends State<Authenticate> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Container(
-                    width: 100,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        theme.primaryColor,
-                        theme.primaryColorDark,
-                      ]),
-                      borderRadius: BorderRadius.circular(6.0),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color(0xFF6078ea).withOpacity(.3),
-                            offset: Offset(0.0, 8.0),
-                            blurRadius: 8.0)
-                      ],
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(6.0),
-                        onTap: () {},
-                        child: Center(
-                          child: Text(
-                            "登入",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                  RaisedButton(
+                    child: Text("登入"),
+                    onPressed: () => {},
+                    color: theme.primaryColor,
+                    textColor: Colors.white,
+                  ),
                 ],
               ),
               SizedBox(height: 20),
