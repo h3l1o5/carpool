@@ -12,7 +12,7 @@ class AppTheme {
   );
 
   static ThemeData dark = ThemeData(
-    backgroundColor: Color(0xFF333340),
+    backgroundColor: Color(0xFF2C2C33),
     primarySwatch: Colors.red,
     accentColor: Colors.teal[600],
     errorColor: Colors.redAccent,

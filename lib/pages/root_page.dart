@@ -44,38 +44,55 @@ class RootPageState extends State<RootPage>
     final rootPageTabBloc = Provider.of<RootPageTabBloc>(context);
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: theme.backgroundColor,
-      body: Stack(
-        children: <Widget>[
-          createSideMenuContainer(
-            context,
-            sideMenu: SideMenu(
-              onChangingSideMenuStatus: _handleChangingSideMenuStatus,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            theme.backgroundColor,
+            theme.backgroundColor.withOpacity(.5),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: <Widget>[
+            createSideMenuContainer(
+              context,
+              sideMenu: SideMenu(
+                onChangingSideMenuStatus: _handleChangingSideMenuStatus,
+              ),
             ),
-          ),
-          Offstage(
-            offstage: rootPageTabBloc.currentTab != RootPageTabEnum.explore,
-            child: Stack(
-              children: <Widget>[
-                createTabContainer(
-                  context,
-                  Explore(),
+            Container(
+              child: Offstage(
+                offstage: rootPageTabBloc.currentTab != RootPageTabEnum.explore,
+                child: Stack(
+                  children: <Widget>[
+                    createTabContainer(
+                      context,
+                      Explore(),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-          Positioned(
-            top: 60,
-            left: 20,
-            child: InkWell(
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              child: Icon(Icons.menu),
-              onTap: _handleChangingSideMenuStatus,
+            Positioned(
+              top: 60,
+              left: 20,
+              child: InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                child: AnimatedIcon(
+                  icon: AnimatedIcons.menu_home,
+                  progress: _controller,
+                ),
+                onTap: _handleChangingSideMenuStatus,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
