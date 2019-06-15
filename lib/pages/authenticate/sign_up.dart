@@ -84,6 +84,7 @@ class _SignUpState extends State<SignUp> {
                                 TextFormField(
                                   controller: _emailFieldController,
                                   keyboardType: TextInputType.emailAddress,
+                                  autocorrect: false,
                                   validator: (value) {
                                     if (!Validator.isEmailValid(value)) {
                                       return "請輸入正確的電子郵件地址";
@@ -177,7 +178,28 @@ class _SignUpState extends State<SignUp> {
           email: _emailFieldController.text,
           password: _passwordFieldController.text);
 
-      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
+              ),
+              title: Text("註冊成功"),
+              content: Text("現在你可以使用這個電子郵件地址登入了"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("返回"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
     } catch (e) {
       if (e.code == "ERROR_EMAIL_ALREADY_IN_USE") {
         final snackBar = SnackBar(
