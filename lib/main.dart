@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:kapoo/router.dart';
 import 'package:kapoo/theme.dart';
-import 'package:provider/provider.dart';
-import 'package:kapoo/blocs/root_page_tab_bloc.dart';
 import 'package:kapoo/pages/root_page.dart';
+import 'package:kapoo/blocs/root_page_tab_bloc.dart';
+import 'package:kapoo/blocs/auth_bloc.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<RootPageTabBloc>(
-          builder: (_) => RootPageTabBloc(initialTab: RootPageTabEnum.explore),
+          builder: (_) => RootPageTabBloc(),
+        ),
+        ChangeNotifierProvider<AuthBloc>(
+          builder: (_) => AuthBloc(),
         ),
       ],
       child: MaterialApp(

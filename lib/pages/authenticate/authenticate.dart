@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kapoo/blocs/auth_bloc.dart';
 import 'package:kapoo/pages/authenticate/customIcons.dart';
 import 'package:kapoo/pages/authenticate/widgets/social_icons.dart';
 import 'package:kapoo/router.dart';
@@ -158,7 +158,7 @@ class _AuthenticateState extends State<Authenticate> {
                     children: <Widget>[
                       RaisedButton(
                         child: Text("登入"),
-                        onPressed: () => handleSignInPressed(context),
+                        onPressed: () => handleSignIn(context),
                         color: theme.primaryColor,
                         textColor: Colors.white,
                       ),
@@ -227,7 +227,7 @@ class _AuthenticateState extends State<Authenticate> {
     );
   }
 
-  Future<void> handleSignInPressed(BuildContext context) async {
+  Future<void> handleSignIn(BuildContext context) async {
     if (!_formKey.currentState.validate()) {
       setState(() {
         _shouldAutoValidate = true;
@@ -240,9 +240,10 @@ class _AuthenticateState extends State<Authenticate> {
     });
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailFieldController.text,
-          password: _passwordFieldController.text);
+      final authBloc = AuthBloc();
+
+      await authBloc.signInWithEmailAndPassword(
+          _emailFieldController.text, _passwordFieldController.text);
 
       Navigator.of(context).pop();
     } catch (e) {
