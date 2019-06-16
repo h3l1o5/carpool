@@ -21,6 +21,7 @@ class RootPageState extends State<RootPage>
   Animation<double> _scaleAnimation;
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
+  Animation<BorderRadius> _borderRadiusAnimation;
 
   @override
   void initState() {
@@ -30,6 +31,9 @@ class RootPageState extends State<RootPage>
     _menuScaleAnimation =
         Tween<double>(begin: 0.5, end: 1).animate(_controller);
     _slideAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
+        .animate(_controller);
+    _borderRadiusAnimation = BorderRadiusTween(
+            begin: BorderRadius.circular(40), end: BorderRadius.circular(0))
         .animate(_controller);
   }
 
@@ -146,7 +150,7 @@ class RootPageState extends State<RootPage>
           onTap: _isSideMenuCollapsed ? null : _handleChangingSideMenuStatus,
           child: Material(
             animationDuration: _duration,
-            borderRadius: BorderRadius.all(Radius.circular(40)),
+            borderRadius: _borderRadiusAnimation.value,
             elevation: _isSideMenuCollapsed ? 0 : 8,
             color: theme.backgroundColor,
             child: SingleChildScrollView(

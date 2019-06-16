@@ -14,7 +14,7 @@
 
 ### Social sign in
 
-- [ ] Google
+- [x] Google
 - [ ] Facebook
 
 ### UI
