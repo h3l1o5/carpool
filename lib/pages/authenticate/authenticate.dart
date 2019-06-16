@@ -158,7 +158,7 @@ class _AuthenticateState extends State<Authenticate> {
                     children: <Widget>[
                       RaisedButton(
                         child: Text("登入"),
-                        onPressed: () => handleSignIn(context),
+                        onPressed: () => handleSignInWithEmail(context),
                         color: theme.primaryColor,
                         textColor: Colors.white,
                       ),
@@ -193,7 +193,7 @@ class _AuthenticateState extends State<Authenticate> {
                           Color(0xFFff355d),
                         ],
                         iconData: CustomIcons.googlePlus,
-                        onPressed: () {},
+                        onPressed: () => handleSignInWithGoogle(context),
                       ),
                     ],
                   ),
@@ -227,7 +227,24 @@ class _AuthenticateState extends State<Authenticate> {
     );
   }
 
-  Future<void> handleSignIn(BuildContext context) async {
+  Future<void> handleSignInWithGoogle(BuildContext context) async {
+    final authBloc = AuthBloc();
+
+    setState(() {
+      _isBusy = true;
+    });
+
+    try {
+      await authBloc.signInWithGoogle();
+      Navigator.of(context).pop();
+    } finally {
+      setState(() {
+        _isBusy = false;
+      });
+    }
+  }
+
+  Future<void> handleSignInWithEmail(BuildContext context) async {
     if (!_formKey.currentState.validate()) {
       setState(() {
         _shouldAutoValidate = true;
