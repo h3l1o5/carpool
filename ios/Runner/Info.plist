@@ -43,7 +43,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<!-- Social Sign-in Section -->
+	<!-- Google Sign-in Section -->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -52,21 +52,9 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.641270305617-u67br767cr481luqe3i8l4i1mupo7eoc</string>
-				<string>fb341537749843554</string>
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>341537749843554</string>
-	<key>FacebookDisplayName</key>
-	<string>Kapoo</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-			<string>fbapi</string>
-			<string>fb-messenger-share-api</string>
-			<string>fbauth2</string>
-			<string>fbshareextension</string>
-	</array>
-	<!-- End of the Social Sign-in Section -->
+	<!-- End of the Google Sign-in Section -->
 </dict>
 </plist>
