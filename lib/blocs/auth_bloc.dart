@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class AuthBloc with ChangeNotifier {
   static final AuthBloc _authBlocSingleton = AuthBloc._internal();
   static final _firebaseAuth = FirebaseAuth.instance;
   static final _googleSignIn = GoogleSignIn(scopes: ["email"]);
+  static final _facebookSignIn = FacebookLogin();
   FirebaseUser _user;
 
   factory AuthBloc() {
@@ -51,8 +53,29 @@ class AuthBloc with ChangeNotifier {
     }
   }
 
+  Future<void> signInWithFacebook() async {
+    final result = await _facebookSignIn.logInWithReadPermissions(["email"]);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final credential = FacebookAuthProvider.getCredential(
+            accessToken: result.accessToken.token);
+
+        await _firebaseAuth.signInWithCredential(credential);
+        print(await _firebaseAuth.currentUser());
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        throw Exception();
+        break;
+      case FacebookLoginStatus.error:
+        throw Exception();
+        break;
+    }
+  }
+
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
+    await _facebookSignIn.logOut();
   }
 }

@@ -184,7 +184,7 @@ class _AuthenticateState extends State<Authenticate> {
                           Color(0xFF00eaf8),
                         ],
                         iconData: CustomIcons.facebook,
-                        onPressed: () {},
+                        onPressed: () => handleSignInWithFacebook(context),
                       ),
                       SizedBox(width: 10),
                       SocialIcon(
@@ -236,6 +236,23 @@ class _AuthenticateState extends State<Authenticate> {
 
     try {
       await authBloc.signInWithGoogle();
+      Navigator.of(context).pop();
+    } finally {
+      setState(() {
+        _isBusy = false;
+      });
+    }
+  }
+
+  Future<void> handleSignInWithFacebook(BuildContext context) async {
+    final authBloc = AuthBloc();
+
+    setState(() {
+      _isBusy = true;
+    });
+
+    try {
+      await authBloc.signInWithFacebook();
       Navigator.of(context).pop();
     } finally {
       setState(() {
