@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-
-enum RootPageTabEnum { explore, setting }
+import 'package:kapoo/enum.dart';
 
 class RootPageTabBloc with ChangeNotifier {
-  RootPageTabEnum _currentTab;
+  ROOT_PAGE_TAB _currentTab;
 
   RootPageTabBloc() {
-    _currentTab = RootPageTabEnum.explore;
+    _currentTab = ROOT_PAGE_TAB.EXPLORE;
   }
 
-  RootPageTabEnum get currentTab {
+  ROOT_PAGE_TAB get currentTab {
     return _currentTab;
   }
 
-  set currentTab(RootPageTabEnum tab) {
+  set currentTab(ROOT_PAGE_TAB tab) {
     _currentTab = tab;
     notifyListeners();
   }

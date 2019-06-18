@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:kapoo/models/user.dart';
 import 'package:kapoo/services/auth_service.dart';
+import 'package:kapoo/enum.dart';
 
 class AuthBloc with ChangeNotifier {
   AuthService _authService = AuthService();
+  AUTH_STATE _authState = AUTH_STATE.UNDETERMINED;
   User _user;
 
   AuthBloc() {
     _authService.onAuthStateChanged.listen((user) {
+      _authState =
+          user == null ? AUTH_STATE.UNAUTHENTICATED : AUTH_STATE.AUTHENTICATED;
       _user = user;
       notifyListeners();
     });
+  }
+
+  AUTH_STATE getAuthState() {
+    return _authState;
   }
 
   User getUser() {

@@ -15,7 +15,7 @@ class User {
     this.isEmailVerified,
   });
 
-  factory User.fromFirebase(DocumentSnapshot document) {
+  factory User.fromFirestore(DocumentSnapshot document) {
     Map data = document.data;
 
     return User(

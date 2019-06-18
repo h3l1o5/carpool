@@ -9,7 +9,7 @@ class AuthService {
   static final _firestore = Firestore.instance;
   static final _firebaseAuth = FirebaseAuth.instance;
   static final _googleSignIn = GoogleSignIn(scopes: ["email"]);
-  static final _authStreamController = StreamController<User>.broadcast();
+  static final _authStreamController = StreamController<User>();
 
   StreamSubscription<User> _userStreamSubscription;
   Stream<User> onAuthStateChanged = _authStreamController.stream;
@@ -17,7 +17,6 @@ class AuthService {
   AuthService() {
     _firebaseAuth.onAuthStateChanged.listen((firebaseUser) async {
       if (firebaseUser != null) {
-        await _extendUser(firebaseUser);
         _userStreamSubscription = _getUserStream(firebaseUser)
             .listen((user) => _authStreamController.add(user));
       } else {
@@ -36,8 +35,11 @@ class AuthService {
   }
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
+    final firebaseUser = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+
+    final user = await _fetchOrCreateUser(firebaseUser);
+    _authStreamController.add(User.fromFirestore(user));
   }
 
   Future<void> signInWithGoogle() async {
@@ -49,7 +51,10 @@ class AuthService {
           accessToken: googleAccountAuth.accessToken,
           idToken: googleAccountAuth.idToken);
 
-      await _firebaseAuth.signInWithCredential(credential);
+      final firebaseUser = await _firebaseAuth.signInWithCredential(credential);
+
+      final user = await _fetchOrCreateUser(firebaseUser);
+      _authStreamController.add(User.fromFirestore(user));
     } else {
       throw Exception();
     }
@@ -60,22 +65,21 @@ class AuthService {
     await _googleSignIn.signOut();
   }
 
-  Future<void> _extendUser(FirebaseUser firebaseUser) async {
-    final userExtension =
-        await _firestore.collection("users").document(firebaseUser.uid).get();
+  Future<dynamic> _fetchOrCreateUser(FirebaseUser firebaseUser) async {
+    final userRef = _firestore.collection("users").document(firebaseUser.uid);
 
-    if (!userExtension.exists) {
+    var user = await userRef.get();
+    if (!user.exists) {
       await _firestore.collection("users").document(firebaseUser.uid).setData({
-        "displayName": firebaseUser.displayName,
+        "displayName": firebaseUser.displayName ?? "",
         "email": firebaseUser.email,
         "isEmailVerified": firebaseUser.isEmailVerified,
-        "photoUrl": firebaseUser.photoUrl,
+        "photoUrl": firebaseUser.photoUrl ?? "",
       });
-    } else {
-      await _firestore.collection("users").document(firebaseUser.uid).setData({
-        "isEmailVerified": firebaseUser.isEmailVerified,
-      }, merge: true);
+      user = await userRef.get();
     }
+
+    return user;
   }
 
   Stream<User> _getUserStream(FirebaseUser firebaseUser) {
@@ -84,6 +88,6 @@ class AuthService {
         .document(firebaseUser.uid)
         .snapshots()
         .take(1)
-        .map((firebaseUser) => User.fromFirebase(firebaseUser));
+        .map((user) => User.fromFirestore(user));
   }
 }

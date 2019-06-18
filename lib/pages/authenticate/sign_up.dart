@@ -177,7 +177,9 @@ class _SignUpState extends State<SignUp> {
     final authBloc = Provider.of<AuthBloc>(context);
     try {
       await authBloc.signUp(
-          _emailFieldController.text, _passwordFieldController.text);
+        _emailFieldController.text,
+        _passwordFieldController.text,
+      );
 
       showDialog(
           context: context,

@@ -10,4 +10,10 @@ class Validator {
   static bool isPasswordValid(String password) {
     return password.length >= 8;
   }
+
+  static bool isDisplayNameValid(String displayName) {
+    final _displayName = displayName.trim();
+
+    return _displayName.length > 0 && _displayName.length <= 8;
+  }
 }

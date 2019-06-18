@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kapoo/blocs/root_page_tab_bloc.dart';
+import 'package:kapoo/enum.dart';
 import 'package:kapoo/pages/explore/explore.dart';
 import 'package:kapoo/pages/side_menu.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +68,7 @@ class RootPageState extends State<RootPage>
             ),
             Container(
               child: Offstage(
-                offstage: rootPageTabBloc.currentTab != RootPageTabEnum.explore,
+                offstage: rootPageTabBloc.currentTab != ROOT_PAGE_TAB.EXPLORE,
                 child: Stack(
                   children: <Widget>[
                     createTabContainer(
