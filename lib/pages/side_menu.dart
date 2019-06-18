@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kapoo/blocs/auth_bloc.dart';
 import 'package:kapoo/blocs/root_page_tab_bloc.dart';
 import 'package:kapoo/enum.dart';
+import 'package:kapoo/router.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
@@ -27,6 +28,7 @@ class SideMenu extends StatelessWidget {
                   borderRadius: BorderRadius.circular(45),
                   child: Image.network(
                     user.photoUrl,
+                    fit: BoxFit.contain,
                     height: 90,
                     width: 90,
                   ),
@@ -45,25 +47,28 @@ class SideMenu extends StatelessWidget {
                   ),
                 ),
           SizedBox(height: 30),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                user != null
-                    ? user.displayName != "" ? user.displayName : "匿名用戶"
-                    : "訪客",
-                style: TextStyle(
-                  fontSize: 36,
-                  color: theme.textTheme.body1.color,
+          GestureDetector(
+            onTap: () => user != null ? handleEditProfilePressed(context) : {},
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  user != null
+                      ? user.displayName != "" ? user.displayName : "匿名用戶"
+                      : "訪客",
+                  style: TextStyle(
+                    fontSize: 36,
+                    color: theme.textTheme.body1.color,
+                  ),
                 ),
-              ),
-              Text(
-                user != null ? "點此編輯詳細資訊" : "請登入以使用大部分功能",
-                style: TextStyle(
-                  color: theme.textTheme.body1.color.withAlpha(150),
-                ),
-              )
-            ],
+                Text(
+                  user != null ? "查看及編輯個人資訊" : "請登入以使用大部分功能",
+                  style: TextStyle(
+                    color: theme.textTheme.body1.color.withAlpha(150),
+                  ),
+                )
+              ],
+            ),
           ),
           SizedBox(height: 60),
           Container(
@@ -134,16 +139,21 @@ class SideMenu extends StatelessWidget {
             child: Text(user != null ? "登出" : "登入"),
             color: theme.primaryColor,
             textColor: Colors.white,
-            onPressed: () =>
-                user != null ? handleSignOut(context) : handleSignIn(context),
+            onPressed: () => user != null
+                ? handleSignOut(context)
+                : handleSignInPressed(context),
           ),
         ],
       ),
     );
   }
 
-  void handleSignIn(BuildContext context) {
-    Navigator.pushNamed(context, "/auth");
+  void handleEditProfilePressed(BuildContext context) {
+    Navigator.pushNamed(context, editProfileRoute);
+  }
+
+  void handleSignInPressed(BuildContext context) {
+    Navigator.pushNamed(context, authenticateRoute);
   }
 
   Future<void> handleSignOut(BuildContext context) async {

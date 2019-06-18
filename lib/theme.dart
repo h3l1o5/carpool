@@ -6,6 +6,7 @@ class AppTheme {
     primarySwatch: Colors.red,
     accentColor: Colors.teal,
     textTheme: TextTheme(
+      display1: TextStyle(color: Color(0xFF212121), fontSize: 30),
       body1: TextStyle(color: Color(0xFF212121)),
     ),
     iconTheme: IconThemeData(color: Color(0xFF212121)),
@@ -17,6 +18,7 @@ class AppTheme {
     accentColor: Colors.teal[600],
     errorColor: Colors.redAccent,
     textTheme: TextTheme(
+      display1: TextStyle(color: Colors.white, fontSize: 30),
       body1: TextStyle(color: Colors.white),
     ),
     iconTheme: IconThemeData(color: Colors.white),
