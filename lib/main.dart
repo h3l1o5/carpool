@@ -13,12 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<RootPageTabBloc>(
-          builder: (_) => RootPageTabBloc(),
-        ),
-        ChangeNotifierProvider<AuthBloc>(
-          builder: (_) => AuthBloc(),
-        ),
+        ChangeNotifierProvider<RootPageTabBloc>.value(value: RootPageTabBloc()),
+        ChangeNotifierProvider<AuthBloc>.value(value: AuthBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

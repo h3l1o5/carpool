@@ -5,6 +5,7 @@ import 'package:kapoo/pages/authenticate/widgets/social_icons.dart';
 import 'package:kapoo/router.dart';
 import 'package:kapoo/utils/validator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -228,7 +229,7 @@ class _AuthenticateState extends State<Authenticate> {
   }
 
   Future<void> handleSignInWithGoogle(BuildContext context) async {
-    final authBloc = AuthBloc();
+    final authBloc = Provider.of<AuthBloc>(context);
 
     setState(() {
       _isBusy = true;
@@ -257,7 +258,7 @@ class _AuthenticateState extends State<Authenticate> {
     });
 
     try {
-      final authBloc = AuthBloc();
+      final authBloc = Provider.of<AuthBloc>(context);
 
       await authBloc.signInWithEmailAndPassword(
           _emailFieldController.text, _passwordFieldController.text);

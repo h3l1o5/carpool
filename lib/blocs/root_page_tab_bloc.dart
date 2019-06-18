@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 enum RootPageTabEnum { explore, setting }
 
 class RootPageTabBloc with ChangeNotifier {
-  static final RootPageTabBloc _rootPageTabSingleton =
-      RootPageTabBloc._internal();
   RootPageTabEnum _currentTab;
 
-  factory RootPageTabBloc() {
-    return _rootPageTabSingleton;
-  }
-  RootPageTabBloc._internal() {
+  RootPageTabBloc() {
     _currentTab = RootPageTabEnum.explore;
   }
 

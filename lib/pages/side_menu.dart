@@ -40,14 +40,14 @@ class SideMenu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                authBloc.user != null ? "你好" : "訪客",
+                authBloc.getUser() != null ? "你好" : "訪客",
                 style: TextStyle(
                   fontSize: 36,
                   color: theme.textTheme.body1.color,
                 ),
               ),
               Text(
-                authBloc.user != null ? "點此編輯詳細資訊" : "請登入以使用大部分功能",
+                authBloc.getUser() != null ? "點此編輯詳細資訊" : "請登入以使用大部分功能",
                 style: TextStyle(
                   color: theme.textTheme.body1.color.withAlpha(150),
                 ),
@@ -120,11 +120,12 @@ class SideMenu extends StatelessWidget {
           ),
           Spacer(),
           RaisedButton(
-            child: Text(authBloc.user != null ? "登出" : "登入"),
+            child: Text(authBloc.getUser() != null ? "登出" : "登入"),
             color: theme.primaryColor,
             textColor: Colors.white,
-            onPressed: () =>
-                authBloc.user != null ? handleSignOut() : handleSignIn(context),
+            onPressed: () => authBloc.getUser() != null
+                ? handleSignOut(context)
+                : handleSignIn(context),
           ),
         ],
       ),
@@ -135,8 +136,8 @@ class SideMenu extends StatelessWidget {
     Navigator.pushNamed(context, "/auth");
   }
 
-  Future<void> handleSignOut() async {
-    final authBloc = AuthBloc();
+  Future<void> handleSignOut(BuildContext context) async {
+    final authBloc = Provider.of<AuthBloc>(context);
 
     try {
       await authBloc.signOut();

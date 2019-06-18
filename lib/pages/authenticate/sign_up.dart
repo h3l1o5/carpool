@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kapoo/blocs/auth_bloc.dart';
 import 'package:kapoo/utils/validator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -173,7 +174,7 @@ class _SignUpState extends State<SignUp> {
       _isBusy = true;
     });
 
-    final authBloc = AuthBloc();
+    final authBloc = Provider.of<AuthBloc>(context);
     try {
       await authBloc.signUp(
           _emailFieldController.text, _passwordFieldController.text);
