@@ -95,20 +95,6 @@ class _AuthenticateState extends State<Authenticate> {
                               },
                               style:
                                   TextStyle(color: theme.textTheme.body1.color),
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: theme.textTheme.body1.color
-                                        .withOpacity(.3),
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: theme.textTheme.body1.color
-                                        .withOpacity(.3),
-                                  ),
-                                ),
-                              ),
                             ),
                             SizedBox(height: 30),
                             Text("密碼", style: TextStyle(fontSize: 18)),
@@ -122,20 +108,6 @@ class _AuthenticateState extends State<Authenticate> {
                               obscureText: true,
                               style:
                                   TextStyle(color: theme.textTheme.body1.color),
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: theme.textTheme.body1.color
-                                        .withOpacity(.3),
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: theme.textTheme.body1.color
-                                        .withOpacity(.3),
-                                  ),
-                                ),
-                              ),
                             ),
                             SizedBox(height: 30),
                             Row(
