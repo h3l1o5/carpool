@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData light = ThemeData(
     backgroundColor: Colors.white,
-    primarySwatch: Colors.red,
-    accentColor: Colors.teal,
+    primarySwatch: Colors.teal,
+    accentColor: Colors.pinkAccent,
     textTheme: TextTheme(
       display1: TextStyle(color: Color(0xFF212121), fontSize: 30),
       body1: TextStyle(color: Color(0xFF212121)),
@@ -12,14 +12,9 @@ class AppTheme {
     hintColor: Color(0xFF212121).withOpacity(.4),
     iconTheme: IconThemeData(color: Color(0xFF212121)),
     inputDecorationTheme: InputDecorationTheme(
-      enabledBorder: UnderlineInputBorder(
+      border: UnderlineInputBorder(
         borderSide: BorderSide(
-          color: Color(0xFF212121).withOpacity(.2),
-        ),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Color(0xFF212121).withOpacity(.2),
+          color: Colors.white.withOpacity(.2),
         ),
       ),
     ),
@@ -27,21 +22,17 @@ class AppTheme {
 
   static ThemeData dark = ThemeData(
     backgroundColor: Color(0xFF2C2C33),
-    primarySwatch: Colors.red,
-    accentColor: Colors.teal[600],
+    primarySwatch: Colors.teal,
+    accentColor: Colors.pinkAccent,
     textTheme: TextTheme(
-      display1: TextStyle(color: Colors.white, fontSize: 30),
-      body1: TextStyle(color: Colors.white),
+      display1: TextStyle(color: Colors.white.withOpacity(.9), fontSize: 30),
+      body1: TextStyle(color: Colors.white.withOpacity(.9)),
+      button: TextStyle(color: Colors.white.withOpacity(.9)),
     ),
     hintColor: Colors.white.withOpacity(.4),
-    iconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(color: Colors.white.withOpacity(.9)),
     inputDecorationTheme: InputDecorationTheme(
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.white.withOpacity(.2),
-        ),
-      ),
-      focusedBorder: UnderlineInputBorder(
+      border: UnderlineInputBorder(
         borderSide: BorderSide(
           color: Colors.white.withOpacity(.2),
         ),
