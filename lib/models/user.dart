@@ -5,6 +5,7 @@ class User {
   final String displayName;
   final String email;
   final String photoUrl;
+  final String gender;
   final bool isEmailVerified;
 
   User({
@@ -12,6 +13,7 @@ class User {
     this.displayName,
     this.email,
     this.photoUrl,
+    this.gender,
     this.isEmailVerified,
   });
 
@@ -23,6 +25,7 @@ class User {
       displayName: data["displayName"] ?? "",
       email: data["email"] ?? "",
       photoUrl: data["photoUrl"] ?? "",
+      gender: data["gender"] ?? "",
       isEmailVerified: data["isEmailVerified"] ?? false,
     );
   }
